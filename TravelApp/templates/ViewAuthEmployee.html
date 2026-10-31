@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Itinerary Planner | View Auth</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-red: #b30000;
+            --dark-blue: #0a1128;
+            --glass-white: rgba(255, 255, 255, 0.95);
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-blue);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .admin-panel {
+            background: #050a18;
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            background: var(--primary-red);
+            display: flex;
+            justify-content: flex-end;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover, nav a.active { background: #800000; }
+
+        .main-container {
+            padding: 60px 10%;
+            background: linear-gradient(to bottom, rgba(10, 17, 40, 0.7), var(--dark-blue)), 
+                        url("{% static 'images/tra.jpg' %}");
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .hero-text { max-width: 450px; margin-top: 50px; }
+        .hero-text i { font-family: 'Playfair Display', serif; color: #7ab8bf; font-size: 24px; }
+        .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 50px; margin: 10px 0; }
+        .hero-text p { border-left: 2px solid #7ab8bf; padding-left: 15px; opacity: 0.8; margin-bottom: 30px; }
+
+        .filter-card {
+            background: var(--glass-white);
+            padding: 40px;
+            border-radius: 20px;
+            width: 350px;
+            color: #333;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .input-group { text-align: left; margin-top: 20px; }
+        .input-group label { font-size: 11px; font-weight: 600; display: block; margin-bottom: 5px; }
+        .input-wrapper { position: relative; display: flex; align-items: center; }
+        .input-wrapper input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
+        .calendar-icon { position: absolute; right: 10px; cursor: pointer; width: 20px; }
+
+        .btn-submit {
+            width: 100%; background: var(--primary-red); color: white; border: none;
+            padding: 15px; border-radius: 8px; margin-top: 25px; cursor: pointer; font-weight: 600;
+        }
+
+        /* Results Table Styling */
+        .results-section { width: 100%; margin-top: 50px; }
+        .table-container {
+            background: white; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        table { width: 100%; border-collapse: collapse; color: #333; }
+        th { background: #f8f9fa; padding: 18px; text-align: left; font-size: 13px; color: #666; border-bottom: 2px solid #eee; }
+        td { padding: 15px 18px; border-bottom: 1px solid #eee; font-size: 14px; }
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    </style>
+
+    <script src="{% static 'datetimepicker.js' %}"></script>
+    <script>
+        function validate(formObj) {
+            if(!formObj.t1.value) { alert("Choose From Date"); return false; }
+            if(!formObj.t2.value) { alert("Choose To Date"); return false; }
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+    <div class="admin-panel">
+        <span>Travel System Admin</span>
+        <span><span style="color:#00ff00">●</span> Database Connected</span>
+    </div>
+
+    <nav>
+        <a href="{% url 'AddEmployee' %}">Add Employees</a>
+        <a href="{% url 'ViewEmployee' %}">View Employees</a>
+        <a href="{% url 'ViewAuthEmployee' %}" class="active">View Auth</a>
+        <a href="{% url 'index' %}">Logout</a>
+    </nav>
+
+    <div class="main-container">
+        <div class="hero-text">
+            <i>Travel Itinerary</i>
+            <h1>Authentication Logs</h1>
+            <p>Track employee logins and system access status across your organization.</p>
+        </div>
+
+        <div class="filter-card">
+            <h2 style="margin:0">Report Filter</h2>
+            <form method="post" action="ViewAuthEmployeeAction" onsubmit="return validate(this);">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label>FROM DATE</label>
+                    <div class="input-wrapper">
+                        <input name="t1" type="text" id="demo" readonly>
+                        <img src="{% static 'cal.gif' %}" class="calendar-icon" onclick="NewCal('demo','ddmmyyyy',false,24)">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>TO DATE</label>
+                    <div class="input-wrapper">
+                        <input name="t2" type="text" id="demo2" readonly>
+                        <img src="{% static 'cal.gif' %}" class="calendar-icon" onclick="NewCal('demo2','ddmmyyyy',false,24)">
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">GENERATE REPORT</button>
+            </form>
+            {% if data %}<p style="color:red; font-size:12px">{{ data }}</p>{% endif %}
+        </div>
+
+        {% if logs %}
+        <div class="results-section">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>EMPLOYEE NAME</th>
+                            <th>LOGIN DATE</th>
+                            <th>LOGIN STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                            <tr>
+                                  <td>{{ log.username }}</td>
+                                  <td>{{ log.login_date }}</td>
+                                  <td>{{ log.login_status }}</td>
+                           </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligence Dashboard | Tripvel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #020617; }
+        .font-serif { font-family: 'Playfair Display', serif; } 
+        .glass-sidebar { background: linear-gradient(to right, rgba(2, 6, 23, 0.95) 0%, rgba(2, 6, 23, 0.75) 100%); backdrop-filter: blur(12px); }
+        .triangle-box { background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; backdrop-filter: blur(20px); }
+        .triangle-accent { position: absolute; top: 0; right: 0; width: 140px; height: 140px; background: #990000; clip-path: polygon(100% 0, 0 0, 100% 100%); opacity: 0.8; }
+        .stagger-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(255,255,255,0.05); }
+        .stagger-card:hover { transform: translateX(12px); background: rgba(153, 0, 0, 0.15); border-color: #990000; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #990000; border-radius: 10px; }
+        .details-visible { visibility: visible !important; opacity: 1 !important; transform: translateX(0) !important; }
+    </style>
+</head>
+<body class="w-full h-screen overflow-hidden flex flex-col">
+
+    <div class="bg-slate-950 text-slate-400 text-[10px] py-2 px-10 flex justify-between items-center w-full z-50 relative uppercase tracking-widest font-bold border-b border-white/5">
+        <div>Asset Management Terminal</div>
+        <div class="text-white flex gap-6 italic">
+            <span>{{ request.session.user }}</span>
+            <span class="text-red-500">Terminal Active</span>
+        </div>
+    </div>
+
+    <header class="w-full relative z-50 bg-[#990000] shadow-2xl">
+        <div class="w-full px-8 flex flex-wrap justify-end items-center">
+            <a href="{% url 'SearchItinerary' %}" class="px-6 py-5 text-white font-bold text-[11px] uppercase tracking-wider hover:bg-black/20 transition-all border-b-4 {% if 'SearchItinerary' in request.path %} border-white bg-black/30 {% else %} border-transparent {% endif %}">Search Itinerary</a>
+            <a href="{% url 'SearchTransport' %}" class="px-6 py-5 text-white font-bold text-[11px] uppercase tracking-wider hover:bg-black/20 transition-all border-b-4 {% if 'SearchTransport' in request.path %} border-white bg-black/30 {% else %} border-transparent {% endif %}">Search Transport</a>
+            <a href="{% url 'SearchHotels' %}" class="px-6 py-5 text-white font-bold text-[11px] uppercase tracking-wider hover:bg-black/20 transition-all border-b-4 {% if 'SearchHotels' in request.path %} border-white bg-black/30 {% else %} border-transparent {% endif %}">Search Hotels</a>            
+            <a href="{% url 'CancelBookings' %}" class="px-6 py-5 text-white font-bold text-[11px] uppercase tracking-wider hover:bg-black/20 transition-all border-b-4 {% if 'CancelBookings' in request.path %} border-white bg-black/30 {% else %} border-transparent {% endif %}">Cancel Booking</a>
+            <a href="{% url 'FeedbackRatings' %}" class="px-6 py-5 text-white font-bold text-[11px] uppercase tracking-wider hover:bg-black/20 transition-all border-b-4 {% if 'feedback' in request.path %} border-white bg-black/30 {% else %} border-transparent {% endif %}">Feedback & Ratings</a>
+            <a href="{% url 'index' %}" class="px-8 py-5 text-white font-black text-[11px] uppercase bg-black/40 hover:bg-black transition-all ml-4">Logout</a>
+        </div>
+    </header>   
+
+    <main class="relative flex-grow w-full flex overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=2000" class="absolute inset-0 w-full h-full object-cover z-0 opacity-50" alt="Travel Background">
+
+        <div class="relative z-20 flex w-full h-full">
+            <div class="w-full md:w-[45%] h-full glass-sidebar pl-8 md:pl-20 py-12 flex flex-col shadow-2xl">
+                {% if itineraries %}
+                    <h2 class="text-white font-serif text-5xl mb-10 border-b-2 border-[#990000] pb-4 uppercase tracking-tighter drop-shadow-md">
+                        {% if 'Transport' in request.path %}Transport Assets
+                        {% elif 'Hotels' in request.path %}Hotel Assets
+                        {% elif 'Cancel' in request.path %}Reserved History
+                        {% elif 'feedback' in request.path %}User Feedback
+                        {% else %}Itinerary Assets{% endif %}
+                    </h2>
+
+                    <div class="flex-grow overflow-y-auto pr-6 custom-scroll space-y-4">
+                        {% for item in itineraries %}
+                        <div onclick="showDetails('{{ item.name|escapejs }}', '{{ item.desc|escapejs }}', '{{ item.price|escapejs }}', '{{ item.id|escapejs }}')" 
+                             class="stagger-card bg-white/5 p-6 rounded-2xl cursor-pointer group border border-white/5 hover:border-red-500/50">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-[10px] text-[#990000] font-bold uppercase tracking-widest">
+                                        {% if 'CancelBookings' in request.path %}BOOKING #0{{ item.id }}{% else %}REF 0{{ item.id }}{% endif %}
+                                    </span>
+                                    <h3 class="text-white text-xl font-bold group-hover:text-red-400 transition-colors">{{ item.name }}</h3>
+                                    
+                                    {% if 'CancelBookings' in request.path %}
+                                        <a href="{% url 'CancelBookingAction' %}?pid={{ item.id }}" 
+                                           onclick="event.stopPropagation(); return confirm('Authorized Request: Permanently purge this record?');"
+                                           class="text-red-500 text-[10px] font-black uppercase mt-3 block hover:bg-red-500 hover:text-white border border-red-500/30 px-3 py-1 rounded w-fit bg-red-500/10 transition-all">
+                                           Purge Record
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-white font-black text-2xl tracking-tighter">${{ item.price }}</span>
+                                    <p class="text-[9px] text-gray-400 uppercase tracking-widest mt-1">
+                                        {% if 'CancelBookings' in request.path %}Synchronized{% else %}Initialize Intel{% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="mt-20">
+                        <div class="flex items-center gap-2 mb-6 text-red-600 font-bold italic text-4xl">): <span class="text-white text-xs font-black uppercase tracking-[0.3em]">Portal Alert</span></div>
+                        <h1 class="text-white font-serif text-7xl font-bold leading-tight">Data Sync Required</h1>
+                        <p class="text-gray-200 text-lg mt-8 max-w-sm border-l-4 border-[#990000] pl-6 italic mb-10">No records identified for the current sector.</p>
+                        <a href="." class="inline-block bg-[#990000] text-white px-12 py-5 rounded-sm font-bold uppercase text-xs tracking-widest shadow-2xl hover:bg-red-700 transition">RETRY SCAN</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="hidden md:flex w-[55%] h-full items-center justify-center p-12">
+                <div id="detail-box" class="invisible opacity-0 triangle-box w-full max-w-md rounded-[3rem] shadow-2xl transition-all duration-700 transform translate-x-20">
+                    <div class="triangle-accent"></div>
+                    <div class="p-12 pt-16">
+                        <span class="text-[#990000] text-[10px] font-black uppercase tracking-[0.5em]">Asset Intelligence</span>
+                        <h2 id="det-name" class="text-5xl font-serif font-bold text-white mt-4 mb-10 leading-tight"></h2>
+                        <div class="space-y-8 border-t border-white/10 pt-8">
+                            <p id="det-desc" class="text-gray-300 text-lg leading-relaxed italic"></p>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <label class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Rate (USD)</label>
+                                    <p class="text-5xl font-black text-white">$<span id="det-price"></span></p>
+                                </div>
+                                <span id="det-id" class="text-xs font-mono text-[#990000] font-bold"></span>
+                            </div>
+                        </div>
+                        <a id="det-link" href="#" class="mt-12 block w-full bg-[#990000] text-white text-center py-5 rounded-2xl font-bold uppercase text-[11px] tracking-widest shadow-xl hover:bg-black transition-all transform hover:scale-105 active:scale-95">
+                            {% if 'CancelBookings' in request.path %}Review History{% else %}Initialize Booking{% endif %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    function showDetails(name, desc, price, id) {
+        const box = document.getElementById('detail-box');
+        const path = window.location.pathname; 
+        
+        // Reset and Trigger Animation
+        box.classList.remove('hidden', 'invisible', 'opacity-0', 'translate-x-20');
+        void box.offsetWidth; 
+        box.classList.add('details-visible', 'visible', 'opacity-100', 'translate-x-0');
+        
+        // Data Mapping
+        document.getElementById('det-name').innerText = name;
+        document.getElementById('det-desc').innerText = desc;
+        document.getElementById('det-price').innerText = price.replace('$', '');
+
+        let bookingUrl = "";
+        let refPrefix = "";
+
+        if (path.includes('SearchTransport')) {
+            bookingUrl = "/BookTransport";
+            refPrefix = "#TR-0";
+        } else if (path.includes('SearchHotels')) {
+            bookingUrl = "/BookHotel"; 
+            refPrefix = "#HTL-0";
+        } else if (path.includes('CancelBookings')) {
+            bookingUrl = "#";
+            refPrefix = "#BOOK-0";
+        } else {
+            bookingUrl = "/BookItinerary";
+            refPrefix = "#PKG-0";
+        }
+
+        document.getElementById('det-link').href = bookingUrl === "#" ? "#" : (bookingUrl + "?pid=" + id + "&price=" + price);
+        document.getElementById('det-id').innerText = "ASSET REF: " + refPrefix + id;
+    }
+    </script>
+</body>
+</html>

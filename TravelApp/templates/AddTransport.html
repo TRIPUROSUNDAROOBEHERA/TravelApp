@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Transport | Tripvel Logistics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hero-text-shadow { text-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+    </style>
+
+    <script>
+        // Form Validation Script
+        function validate(formObj) {
+            const fields = [
+                { name: 't1', msg: "Please Enter transport name" },
+                { name: 't2', msg: "Please enter source location" },
+                { name: 't3', msg: "Please enter destination location" },
+                { name: 't4', msg: "Please enter departure time" },
+                { name: 't5', msg: "Please enter arrival time" },
+                { name: 't6', msg: "Please enter price" }
+            ];
+            for (let field of fields) {
+                if (formObj[field.name].value.trim() === "") {
+                    alert(field.msg);
+                    formObj[field.name].focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</head>
+<body class="flex flex-col">
+
+    {% if messages %}
+        {% for message in messages %}
+        <script type="text/javascript">
+            alert("{{ message }}");
+        </script>
+        {% endfor %}
+    {% endif %}
+
+    <div class="bg-slate-950/80 backdrop-blur-md text-slate-400 text-[10px] py-2 px-8 flex justify-between items-center w-full z-50 relative uppercase tracking-[0.2em]">
+        <div>Staff Dashboard > Transport Management</div>
+        <div class="flex items-center gap-2">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div> System Online
+        </div>
+    </div>
+
+    <header class="w-full relative z-50 shadow-2xl">
+        <div class="bg-[#990000]/90 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto px-4 flex justify-end">
+                <a href="{% url 'AddTransport' %}" class="px-6 py-4 text-white text-xs font-bold uppercase bg-black/30">Add Transport</a>
+                <a href="{% url 'ViewTransport' %}" class="px-6 py-4 text-white text-xs font-bold uppercase hover:bg-black/20 transition">View Records</a>
+                <a href="{% url 'EmployeeScreen' %}" class="px-6 py-4 text-white text-xs font-bold uppercase hover:bg-black transition border-l border-white/10">Exit Terminal</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative w-full flex-grow flex flex-col md:flex-row items-center justify-center p-6 md:p-12">
+        
+        <div class="w-full md:w-1/2 mb-12 md:mb-0 md:pr-12">
+            <div class="max-w-xl">
+                <h3 class="text-[#54b3a4] italic font-serif text-2xl mb-2 tracking-wide hero-text-shadow">Global Logistics</h3>
+                <h1 class="text-6xl font-serif font-bold text-white leading-tight mb-6 hero-text-shadow">Master Fleet Scheduler</h1>
+                <div class="h-1 w-24 bg-[#54b3a4] mb-6"></div>
+                <p class="text-slate-200 text-lg leading-relaxed hero-text-shadow">
+                    Registering new transport assets into the Tripvel network. Ensure all timestamps and pricing tiers are verified before submission.
+                </p>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 flex justify-center">
+            <div class="w-full max-w-lg glass-card rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-8 md:p-10 border-t-8 border-[#990000]">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-serif font-bold text-slate-900">Transport Entry</h2>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-[0.2em] mt-2 font-bold">Logistics Data Core</p>
+                </div>
+
+                <form name="frm" method="POST" action="{% url 'AddTransportAction' %}" onsubmit="return validate(this);" class="space-y-5">
+                    {% csrf_token %}
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="md:col-span-2"> 
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-wider">Transport Name / ID</label>
+                            <input type="text" name="t1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:ring-2 focus:ring-[#990000] outline-none transition" placeholder="e.g. Luxury Coach BX-90">
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-wider">Origin</label>
+                            <input type="text" name="t2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:ring-2 focus:ring-[#990000] outline-none transition" placeholder="Source City">
+                        </div>
+          
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-wider">Destination</label>
+                            <input type="text" name="t3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:ring-2 focus:ring-[#990000] outline-none transition" placeholder="Arrival City">
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-wider">Departure Time</label>
+                            <input type="text" name="t4" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:ring-2 focus:ring-[#990000] outline-none transition" placeholder="08:00 AM">
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-wider">Arrival Time</label>
+                            <input type="text" name="t5" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:ring-2 focus:ring-[#990000] outline-none transition" placeholder="04:00 PM">
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-wider">Base Fare (USD)</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                                <input type="number" step="0.01" name="t6" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-8 pr-4 py-3 text-sm font-mono font-bold text-[#990000] focus:ring-2 focus:ring-[#990000] outline-none transition" placeholder="0.00">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-[#990000] hover:bg-black text-white font-bold py-4 rounded-2xl shadow-xl transition-all duration-300 transform active:scale-[0.98] uppercase tracking-[0.2em] text-xs mt-6">
+                        Deploy to Network
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="w-full bg-slate-950/90 backdrop-blur-md text-slate-500 py-6 text-center border-t border-white/5">
+        <p class="text-[9px] uppercase tracking-[0.4em]">© 2026 Tripvel Travel | Secure Logistics Infrastructure</p>
+    </footer>
+
+</body>
+</html>

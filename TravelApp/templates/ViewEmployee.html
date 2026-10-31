@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Employees | Travel Itinerary Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Poppins', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
+        .table-container { background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        th { background-color: #990000; color: white; text-transform: uppercase; font-size: 13px; letter-spacing: 0.05em; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        .back-btn { background: #1e293b; color: white; transition: all 0.3s ease; }
+        .back-btn:hover { background: #334155; transform: translateY(-2px); }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <div class="bg-slate-900 text-slate-400 text-[10px] py-2 px-8 flex justify-between items-center w-full shrink-0">
+        <div class="tracking-widest uppercase font-bold">ADMIN PANEL</div>
+        <div class="flex space-x-6 items-center">
+            <span class="flex items-center gap-1">admin@tripvel.com</span>
+            <span class="flex items-center gap-1"><div class="w-2 h-2 bg-green-500 rounded-full"></div> System Online</span>
+        </div>
+    </div>
+
+    <header class="w-full shrink-0">
+        <div class="w-full bg-[#990000] shadow-lg">
+            <div class="w-full px-8 flex overflow-x-auto justify-end items-center">
+                <a href="{% url 'AddEmployee' %}" class="px-8 py-4 text-white text-sm hover:bg-[#7a0000] transition whitespace-nowrap">Add Employees</a>
+                <a href="{% url 'ViewEmployee' %}" class="px-8 py-4 text-white text-sm bg-[#7a0000] transition whitespace-nowrap">View Employees</a>
+                <a href="{% url 'ViewAuthEmployee' %}" class="px-8 py-4 text-white text-sm hover:bg-[#7a0000] transition whitespace-nowrap">View Authenticated Employees</a>
+                <a href="{% url 'index' %}" class="px-8 py-4 text-white text-sm hover:bg-[#7a0000] transition whitespace-nowrap">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center py-12 px-4">
+        <h2 class="text-3xl font-bold text-slate-800 mb-8">Employee Directory</h2>
+
+        <div class="w-full max-w-6xl table-container overflow-hidden">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr>
+                        <th class="p-4">Username</th>
+                        <th class="p-4">Password</th>
+                        <th class="p-4">Phone Number</th>
+                        <th class="p-4">Email Address</th>
+                        <th class="p-4">City/Address</th>
+                    </tr>
+                </thead>
+                <tbody class="text-slate-600">
+                    {% for emp in employees %}
+                    <tr class="border-b border-slate-100 hover:bg-blue-50 transition">
+                        <td class="p-4 font-medium text-slate-900">{{ emp.username }}</td>
+                        <td class="p-4 font-mono text-sm text-red-700">{{ emp.password }}</td>
+                        <td class="p-4">{{ emp.phone_no }}</td>
+                        <td class="p-4">{{ emp.email }}</td>
+                        <td class="p-4">{{ emp.address }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="p-12 text-center text-slate-400 italic">No employees found in the database.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{% url 'AdminLoginAction' %}" class="back-btn mt-10 px-8 py-3 rounded-lg font-semibold shadow-md">Back to Dashboard</a>
+    </main>
+
+    <footer class="w-full bg-[#0b132b] text-white py-10 px-8 shrink-0">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-2xl font-black italic tracking-tighter">tt<span class="text-[#54b3a4]">+</span></span>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Discover the world's most beautiful destinations with our expertly curated travel packages.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-sm font-bold mb-4 uppercase tracking-widest">Quick Links</h4>
+                <ul class="text-xs text-gray-400 space-y-2">
+                    <li><a href="#" class="hover:text-[#54b3a4]">About Us</a></li>
+                    <li><a href="{% url 'FAQ' %}" class="hover:text-[#54b3a4]">Help / FAQ</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-sm font-bold mb-4 uppercase tracking-widest">Contact</h4>
+                <p class="text-xs text-gray-400">contact@tripvel.com</p>
+                <p class="text-xs text-gray-400">+01 234 567 89</p>
+            </div>
+
+            <div>
+                <h4 class="text-sm font-bold mb-4 uppercase tracking-widest">Newsletter</h4>
+                <form class="flex gap-2">
+                    <input type="email" placeholder="Email" class="bg-slate-800 border-none p-2 text-xs w-full rounded">
+                    <button class="bg-[#54b3a4] px-3 py-2 text-[10px] font-bold rounded">GO</button>
+                </form>
+            </div>
+        </div>
+        <div class="text-center text-[10px] text-gray-500 mt-10 border-t border-white/5 pt-5">
+            © 2026 Tripvel Travel Itinerary Planner. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>

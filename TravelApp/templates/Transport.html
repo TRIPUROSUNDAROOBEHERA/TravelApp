@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itinerary Management | Travel Itinerary Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
+        .hero-overlay {
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.6) 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 overflow-x-hidden">
+
+    <div class="bg-slate-900 text-slate-300 text-[10px] py-2 px-8 flex justify-between items-center w-full z-50 relative">
+        <div class="tracking-widest uppercase font-bold text-white">Staff Dashboard > Itinerary Management</div>
+        <div class="flex space-x-6 items-center">
+            <span class="flex items-center gap-1"><div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div> System Online</span>
+        </div>
+    </div>
+
+    <header class="w-full relative z-50">
+        <div class="w-full bg-[#990000] shadow-lg">
+            <div class="max-w-7xl mx-auto px-8 flex flex-wrap justify-end items-center">
+                <a href="{% url 'AddTransport' %}" class="px-6 py-4 text-white font-medium text-xs uppercase tracking-widest bg-[#7a0000] border-r border-red-800/50 transition">Add Transport Details</a> 
+                <a href="{% url 'ViewTransport' %}" class="px-6 py-4 text-white font-medium text-xs uppercase tracking-widest hover:bg-[#7a0000] border-r border-red-800/50 transition">View / Modify Transport</a>
+                <a href="{% url 'EmployeeScreen' %}" class="px-6 py-4 text-white font-medium text-xs uppercase tracking-widest hover:bg-black transition">Exit Terminal</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative w-full flex-grow flex overflow-hidden bg-slate-900">
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2000" class="w-full h-full object-cover opacity-50" alt="Luxury Transport">
+        <div class="absolute inset-0 hero-overlay"></div>
+    </div>
+
+    <div class="relative z-20 max-w-7xl mx-auto w-full px-8 py-24 flex flex-col justify-center text-white">
+        <div class="max-w-2xl">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-[#54b3a4] text-3xl font-black italic tracking-tighter">tt<span class="text-xl">+</span></span>
+                <span class="text-2xl mt-1" style="font-family: 'Great Vibes', cursive;">Logistics Hub</span>
+            </div>
+            
+            <h3 class="text-[#54b3a4] text-3xl font-serif italic mb-2">Transport Management</h3>
+            <h1 class="text-6xl md:text-7xl font-serif font-bold leading-tight mb-8">
+                Seamless <br>Fleet Control
+            </h1>
+            
+            <p class="text-slate-300 text-lg border-l-4 border-[#54b3a4] pl-6 mb-10 leading-relaxed">
+                Manage your global transit network here. Add new vehicle specifications, update route availability, and ensure every traveler's transition is as luxurious as their destination.
+            </p>
+
+            {% if data %}
+            <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl inline-block shadow-2xl animate-fade-in">
+                <p class="text-white text-lg font-medium">{{ data|safe }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+   </main>
+
+    <footer class="w-full bg-[#0b132b] text-white py-12 px-8 shrink-0">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-white/10 pb-10">
+            <div class="col-span-1">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-2xl font-black italic tracking-tighter text-white">tt<span class="text-[#54b3a4]">+</span></span>
+                    <span class="text-xl mt-1" style="font-family: 'Great Vibes', cursive;">tour travel</span>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed">Authorized Management Console v2.0</p>
+            </div>
+            
+            <div class="text-xs text-gray-400 space-y-2">
+                <h4 class="text-white font-bold uppercase tracking-widest mb-4">Quick Navigation</h4>
+                <p><a href="{% url 'EmployeeScreen' %}" class="hover:text-[#54b3a4]">Main Dashboard</a></p>
+                <p><a href="{% url 'CreateItinerary' %}" class="hover:text-[#54b3a4]">Package Creation</a></p>
+            </div>
+
+            <div class="text-xs text-gray-400 space-y-2">
+                <h4 class="text-white font-bold uppercase tracking-widest mb-4">Support</h4>
+                <p>Internal Help: ext. 404</p>
+                <p>Admin Email: admin@tripvel.com</p>
+            </div>
+        </div>
+        <div class="text-center text-[10px] text-gray-500 mt-8">
+            © 2026 Tripvel Travel Itinerary Planner. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
+
+
+

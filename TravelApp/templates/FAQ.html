@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Itinerary Planner | FAQ Helpdesk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #0f172a; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-script { font-family: 'Great Vibes', cursive; color: #990000; }
+        .hero-overlay-left {
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.8) 100%);
+        }
+        .faq-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid #990000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .faq-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(10px);
+            border-left-width: 8px;
+        }
+    </style>
+</head>
+<body class="w-full overflow-x-hidden min-h-screen flex flex-col">
+
+    <!-- TOP UTILITY BAR (Slogan on Left Side, Contact Us / Email / Phone on Right Side) -->
+    <div class="w-full bg-[#161c2e] text-slate-300 text-xs py-2 px-6 sm:px-10 lg:px-14 z-50 relative">
+        <div class="max-w-[1750px] mx-auto flex flex-wrap items-center justify-between gap-3">
+            <!-- Left Side: Slogan -->
+            <div class="text-slate-300 text-xs font-medium tracking-wide flex items-center gap-2">
+                <span>Your Journey Begins Here</span>
+            </div>
+
+            <!-- Right Side: Contact Us, Email, Phone Numbers -->
+            <div class="flex flex-wrap items-center gap-4 sm:gap-6 font-medium text-xs ml-auto">
+                <span class="text-white font-semibold tracking-wide">Contact Us</span>
+                <a href="mailto:sramkumar0101@gmail.com" class="flex items-center gap-1.5 text-slate-300 hover:text-white transition">
+                    <svg class="w-3.5 h-3.5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                    </svg>
+                    <span>sramkumar0101@gmail.com</span>
+                </a>
+                <a href="tel:+919014239763" class="flex items-center gap-1.5 text-slate-300 hover:text-white transition">
+                    <svg class="w-3.5 h-3.5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/>
+                    </svg>
+                    <span>+91 9014239763 / +91 9876543210</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR: Clean Crimson Red (Clean Logo on Left, Nav Tabs on Right) -->
+    <header class="w-full bg-[#960000] border-b border-[#7d0000] shadow-md sticky top-0 z-40">
+        <div class="max-w-[1750px] mx-auto px-6 sm:px-10 lg:px-14 flex items-center justify-between h-14">
+            <!-- Left Side: Brand Logo -->
+            <a href="{% url 'index' %}" class="flex items-center group">
+                <img src="{% static 'images/logo_crop.png' %}" 
+                     alt="Travel Itinerary Planner" 
+                     class="h-8 md:h-9 w-auto object-contain block group-hover:scale-105 transition-transform duration-300">
+            </a>
+
+            <!-- Right Navigation Tabs -->
+            <nav class="hidden lg:flex items-center h-full">
+                <a href="{% url 'index' %}" class="h-full {% if request.path == '/' or request.path == '/index.html' %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-[#630000] transition">
+                    Home
+                </a>
+                <a href="{% url 'AdminLogin' %}" class="h-full {% if 'AdminLogin' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40">
+                    Admin Login
+                </a>
+                <a href="{% url 'EmployeeLogin' %}" class="h-full {% if 'EmployeeLogin' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40">
+                    Employee Login
+                </a>
+                <a href="{% url 'UserLogin' %}" class="h-full {% if 'UserLogin' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40">
+                    User Login
+                </a>
+                <a href="{% url 'Register' %}" class="h-full {% if 'Register' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40">
+                    New User Signup
+                </a>
+                <a href="{% url 'FAQ' %}" class="h-full {% if 'FAQ' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40 border-r border-red-800/40">
+                    FAQ Helpdesk
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobileMenuToggle" class="lg:hidden p-2 rounded text-white hover:bg-white/10 transition ml-auto" aria-label="Toggle Navigation">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Menu Dropdown -->
+        <div id="mobileNavMenu" class="hidden lg:hidden bg-[#800000] border-t border-[#700000] px-6 py-4 space-y-2 shadow-2xl">
+            <a href="{% url 'index' %}" class="block font-medium text-white py-2 border-b border-white/10 {% if request.path == '/' or request.path == '/index.html' %}bg-black/20 px-2 rounded{% endif %}">Home</a>
+            <a href="{% url 'AdminLogin' %}" class="block font-medium text-white py-2 border-b border-white/10 {% if 'AdminLogin' in request.path %}bg-black/20 px-2 rounded{% endif %}">Admin Login</a>
+            <a href="{% url 'EmployeeLogin' %}" class="block font-medium text-white py-2 border-b border-white/10 {% if 'EmployeeLogin' in request.path %}bg-black/20 px-2 rounded{% endif %}">Employee Login</a>
+            <a href="{% url 'UserLogin' %}" class="block font-medium text-white py-2 border-b border-white/10 {% if 'UserLogin' in request.path %}bg-black/20 px-2 rounded{% endif %}">User Login</a>
+            <a href="{% url 'Register' %}" class="block font-medium text-white py-2 border-b border-white/10 {% if 'Register' in request.path %}bg-black/20 px-2 rounded{% endif %}">New User Signup</a>
+            <a href="{% url 'FAQ' %}" class="block font-medium text-white py-2 {% if 'FAQ' in request.path %}bg-black/20 px-2 rounded{% endif %}">FAQ Helpdesk</a>
+        </div>
+    </header>
+
+    <main class="relative w-full flex-grow flex flex-col md:flex-row bg-slate-900 overflow-hidden min-h-[700px]">
+        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2000" alt="Support" class="absolute inset-0 w-full h-full object-cover z-0 opacity-40">
+
+        <div class="relative z-20 w-full md:w-[40%] hero-overlay-left pl-8 md:pl-20 py-16 flex flex-col justify-center">
+            <h3 class="font-script text-4xl mb-2 drop-shadow-lg">customer support</h3>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6 tracking-tighter">Frequently<br>Asked<br>Questions</h1>
+            <p class="text-gray-400 text-sm font-light leading-relaxed max-w-sm border-l-2 border-[#990000] pl-6 italic">
+                Authorized intelligence regarding cancellations, secure payments, and asset adjustments.
+            </p>
+        </div>
+
+        <div class="relative z-20 w-full md:w-[60%] p-8 md:p-20 flex flex-col justify-center bg-slate-900/60 backdrop-blur-md border-l border-white/5">
+            
+            {% if data %}
+            <div class="bg-red-900/20 border border-red-500/30 p-4 rounded-lg mb-8 text-red-200 text-xs font-bold uppercase tracking-widest animate-pulse">
+                System Alert: {{ data|safe }}
+            </div>
+            {% endif %}
+
+            <div class="space-y-4 max-w-2xl">
+                <div class="faq-card p-6 rounded-r-2xl">
+                    <div class="flex items-center gap-4 mb-3">
+                        <span class="bg-[#990000] text-white text-[9px] font-black tracking-widest px-2 py-1 rounded">PAYMENT</span>
+                        <h4 class="text-white font-bold text-lg">How do I get my money back after cancellation?</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed pl-4">Within 3 business days of a verified purge, return payments are transmitted directly to your original source.</p>
+                </div>
+
+                <div class="faq-card p-6 rounded-r-2xl">
+                    <div class="flex items-center gap-4 mb-3">
+                        <span class="bg-[#990000] text-white text-[9px] font-black tracking-widest px-2 py-1 rounded">FLEXIBILITY</span>
+                        <h4 class="text-white font-bold text-lg">Can I shift to another hotel during a trip?</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed pl-4">Asset relocation is possible. Initiate a request via your user dashboard or contact terminal command center.</p>
+                </div>
+
+                <div class="faq-card p-6 rounded-r-2xl">
+                    <div class="flex items-center gap-4 mb-3">
+                        <span class="bg-[#990000] text-white text-[9px] font-black tracking-widest px-2 py-1 rounded">ACCOUNT</span>
+                        <h4 class="text-white font-bold text-lg">How do I track my refund status?</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed pl-4">Sync your terminal and navigate to 'Reserved History' to monitor real-time refund intelligence.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-white/5 flex items-center gap-6">
+                <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">Still have questions?</p>
+                <a href="mailto:sramkumar0101@gmail.com?subject=Tripvel Support Request" 
+                   class="bg-[#990000] text-white text-[11px] font-black tracking-[0.2em] uppercase px-8 py-4 hover:bg-black transition-all rounded-sm shadow-2xl border border-transparent hover:border-red-500">
+                    CONTACT SUPPORT
+                </a>
+            </div>            
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 text-slate-600 py-6 text-center text-[9px] font-bold uppercase tracking-widest">
+        <p>&copy; 2026 Tripvel Logistics Terminal. All intelligence secured.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileNavMenu = document.getElementById('mobileNavMenu');
+            if (mobileMenuToggle && mobileNavMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mobileNavMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
