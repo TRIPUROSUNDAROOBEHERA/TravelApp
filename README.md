@@ -16,10 +16,25 @@ A full-stack enterprise travel logistics and automated itinerary planning web ap
 
 ---
 
+## 📑 Project Documentation & Presentation
+
+Direct links to the project documentation and slide deck:
+
+| Document / Presentation | Description | Format | Direct Link |
+| :--- | :--- | :---: | :---: |
+| **Project Documentation** | Detailed functional specification, architecture, models, and workflows | PDF | [📄 View / Download (PDF)](docs/project%20doc.pdf) |
+| **Project Presentation** | Comprehensive slide deck showcasing system features and design | PPTX | [📊 Download Presentation (PPTX)](docs/project%20PPT.pptx) |
+| **Screen Specifications** | High-resolution UI captures and workflow guides | DOCX | [🖼️ View Screens (DOCX)](SCREENS.docx) |
+
+---
+
 ## 📂 Repository File Structure
 
 ```text
 TravelApp/
+├── docs/                      # Project documentation & presentation
+│   ├── project doc.pdf        # Comprehensive project documentation (PDF)
+│   └── project PPT.pptx       # Official project presentation deck (PPTX)
 ├── manage.py                  # Django administrative script
 ├── requirements.txt           # Python dependency specifications
 ├── run.bat                    # One-click startup script for Windows

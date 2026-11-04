@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db import connection
 from django.utils.safestring import mark_safe
+from django.http import FileResponse, Http404
+from django.conf import settings
 
 from .models import Admin, Employee, User, Hotel, Itinerary, Transport
 
@@ -48,6 +50,25 @@ def FAQ(request):
 def Logout(request):
     request.session.flush()
     return redirect('index')
+
+
+def project_doc_view(request):
+    doc_path = os.path.join(settings.BASE_DIR, 'docs', 'project doc.pdf')
+    if os.path.exists(doc_path):
+        return FileResponse(open(doc_path, 'rb'), content_type='application/pdf')
+    raise Http404('Project document not found.')
+
+
+def project_ppt_download(request):
+    ppt_path = os.path.join(settings.BASE_DIR, 'docs', 'project PPT.pptx')
+    if os.path.exists(ppt_path):
+        return FileResponse(
+            open(ppt_path, 'rb'),
+            as_attachment=True,
+            filename='project PPT.pptx',
+            content_type='application/vnd.openxmlformats-officedocument.presentationml.presentation'
+        )
+    raise Http404('Project presentation not found.')
 
 
 # --- User Authentication ---

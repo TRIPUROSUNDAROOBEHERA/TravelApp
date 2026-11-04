@@ -9,6 +9,10 @@ urlpatterns = [
     path('FAQ', views.FAQ, name='FAQ_clean'),
     path('Logout', views.Logout, name='Logout'),
 
+    # Project Documentation & Presentation
+    path('project-doc', views.project_doc_view, name='project_doc'),
+    path('project-ppt', views.project_ppt_download, name='project_ppt'),
+
     # User Authentication
     path('UserLogin.html', views.UserLogin, name='UserLogin'),
     path('UserLogin', views.UserLogin, name='UserLogin_clean'),
