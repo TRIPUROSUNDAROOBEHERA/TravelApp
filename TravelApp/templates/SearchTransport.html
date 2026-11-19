@@ -43,7 +43,7 @@
             <a href="{% url 'SearchHotels' %}" class="px-6 py-5 text-white font-bold text-[11px] uppercase tracking-wider hover:bg-black/20 transition-all border-b-4 border-transparent">Search Hotels</a>
             <a href="{% url 'CancelBookings' %}" class="px-6 py-5 text-white font-bold text-[11px] uppercase tracking-wider hover:bg-black/20 transition-all border-b-4 border-transparent">Cancel Booking</a>
             <a href="{% url 'FeedbackRatings' %}" class="px-6 py-5 text-white font-bold text-[11px] uppercase tracking-wider hover:bg-black/20 transition-all border-b-4 border-transparent">Feedback & Ratings</a>
-            <a href="{% url 'Logout' %}" class="px-8 py-5 text-white font-black text-[11px] uppercase bg-black/40 hover:bg-black transition-all ml-4">Logout</a>
+            <a href="{% url 'Logout' %}?next=UserLogin" class="px-8 py-5 text-white font-black text-[11px] uppercase bg-black/40 hover:bg-black transition-all ml-4">Logout</a>
         </div>
     </header>   
 

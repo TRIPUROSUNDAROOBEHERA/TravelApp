@@ -33,7 +33,7 @@
                 <a href="{% url 'AddEmployee' %}" class="px-8 py-4 text-white text-sm hover:bg-[#7a0000] transition whitespace-nowrap">Add Employees</a>
                 <a href="{% url 'ViewEmployee' %}" class="px-8 py-4 text-white text-sm bg-[#7a0000] transition whitespace-nowrap">View Employees</a>
                 <a href="{% url 'ViewAuthEmployee' %}" class="px-8 py-4 text-white text-sm hover:bg-[#7a0000] transition whitespace-nowrap">View Authenticated Employees</a>
-                <a href="{% url 'Logout' %}" class="px-8 py-4 text-white text-sm hover:bg-[#7a0000] transition whitespace-nowrap">Logout</a>
+                <a href="{% url 'Logout' %}?next=AdminLogin" class="px-8 py-4 text-white text-sm hover:bg-[#7a0000] transition whitespace-nowrap">Logout</a>
             </div>
         </div>
     </header>

@@ -32,7 +32,7 @@
             <a href="{% url 'Hotels' %}" class="px-6 py-4 text-white text-xs uppercase tracking-widest font-semibold hover:bg-[#7a0000] transition border-r border-red-800/50">Add Hotels</a>
             <a href="{% url 'ViewBookings' %}" class="px-6 py-4 text-white text-xs uppercase tracking-widest font-semibold hover:bg-[#7a0000] transition border-r border-red-800/50">View Bookings</a>
             <a href="{% url 'ViewFeedback' %}" class="px-6 py-4 text-white text-xs uppercase tracking-widest font-semibold hover:bg-[#7a0000] transition border-r border-red-800/50">View Feedback</a>
-            <a href="{% url 'Logout' %}" class="px-6 py-4 text-white text-xs uppercase tracking-widest font-semibold hover:bg-black transition">Logout</a>
+            <a href="{% url 'Logout' %}?next=EmployeeLogin" class="px-6 py-4 text-white text-xs uppercase tracking-widest font-semibold hover:bg-black transition">Logout</a>
         </div>
     </header>
 

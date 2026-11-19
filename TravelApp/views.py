@@ -48,8 +48,32 @@ def FAQ(request):
 
 
 def Logout(request):
+    role = request.session.get('role')
+    user = request.session.get('user')
+    admin = request.session.get('admin')
+    employee = request.session.get('employee')
+    target = request.GET.get('next', '').strip()
+    referer = request.META.get('HTTP_REFERER', '')
+
     request.session.flush()
-    return redirect('index')
+
+    if target == 'AdminLogin':
+        return redirect('AdminLogin')
+    elif target == 'EmployeeLogin':
+        return redirect('EmployeeLogin')
+    elif target == 'UserLogin':
+        return redirect('UserLogin')
+    elif target:
+        return redirect(target)
+
+    if role == 'admin' or admin or any(p in referer for p in ['Admin', 'AddEmployee', 'ViewEmployee', 'ViewAuthEmployee']):
+        return redirect('AdminLogin')
+    elif role == 'employee' or employee or any(p in referer for p in ['Employee', 'Itinerary', 'Hotels', 'Transport', 'ViewBookings', 'ViewFeedback']):
+        return redirect('EmployeeLogin')
+    elif role == 'user' or user or any(p in referer for p in ['User', 'Search', 'Book', 'CancelBooking', 'feedback']):
+        return redirect('UserLogin')
+
+    return redirect('AdminLogin')
 
 
 def project_doc_view(request):
