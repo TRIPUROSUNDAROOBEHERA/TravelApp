@@ -57,45 +57,49 @@
     </div>
 
     <!-- MAIN NAVBAR: Clean Crimson Red (Clean Logo on Left, Nav Tabs on Right) -->
+    <!-- MAIN NAVBAR: Clean Crimson Red with Unified TripGen Logo -->
     <header class="w-full bg-[#960000] border-b border-[#7d0000] shadow-md sticky top-0 z-40">
-        <div class="max-w-[1750px] mx-auto px-6 sm:px-10 lg:px-14 flex items-center justify-between h-14">
-            <!-- Left Side: Brand Logo -->
-            <a href="{% url 'index' %}" class="flex items-center group">
-                <img src="{% static 'images/logo_crop.png' %}" 
-                     alt="Travel Itinerary Planner" 
-                     class="h-8 md:h-9 w-auto object-contain block group-hover:scale-105 transition-transform duration-300">
-            </a>
+        <div class="max-w-[1750px] mx-auto px-4 sm:px-8 lg:px-14 flex items-center justify-between h-14">
+            <!-- Left Side: Brand Logo with TripGen Logo -->
+            <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                <a href="{% url 'index' %}" class="flex items-center gap-2 group" title="TripGen Travel Planner">
+                    <img src="{% static 'images/tripgen_logo.png' %}" 
+                         alt="TripGen" 
+                         class="h-8 sm:h-9 md:h-10 w-auto object-contain rounded-md border border-red-400/40 shadow-sm group-hover:scale-105 transition-transform duration-200">
+                    <span class="text-white font-extrabold tracking-tight text-base sm:text-lg md:text-xl drop-shadow">Trip<span class="text-red-300">Gen</span></span>
+                </a>
+            </div>
 
             <!-- Right Navigation Tabs -->
-            <nav class="hidden lg:flex items-center h-full">
-                <a href="{% url 'index' %}" class="h-full {% if request.path == '/' or request.path == '/index.html' %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-[#630000] transition">
+            <nav class="hidden md:flex items-center h-full flex-shrink-0">
+                <a href="{% url 'index' %}" class="h-full {% if request.path == '/' or request.path == '/index.html' %}bg-[#750000]{% endif %} text-white font-medium text-xs sm:text-sm px-3 sm:px-4 lg:px-6 flex items-center hover:bg-[#630000] transition duration-150 whitespace-nowrap">
                     Home
                 </a>
-                <a href="{% url 'AdminLogin' %}" class="h-full {% if 'AdminLogin' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40">
+                <a href="{% url 'AdminLogin' %}" class="h-full {% if 'AdminLogin' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-xs sm:text-sm px-3 sm:px-4 lg:px-6 flex items-center hover:bg-black/20 transition duration-150 border-l border-red-800/40 whitespace-nowrap">
                     Admin Login
                 </a>
-                <a href="{% url 'EmployeeLogin' %}" class="h-full {% if 'EmployeeLogin' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40">
+                <a href="{% url 'EmployeeLogin' %}" class="h-full {% if 'EmployeeLogin' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-xs sm:text-sm px-3 sm:px-4 lg:px-6 flex items-center hover:bg-black/20 transition duration-150 border-l border-red-800/40 whitespace-nowrap">
                     Employee Login
                 </a>
-                <a href="{% url 'UserLogin' %}" class="h-full {% if 'UserLogin' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40">
+                <a href="{% url 'UserLogin' %}" class="h-full {% if 'UserLogin' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-xs sm:text-sm px-3 sm:px-4 lg:px-6 flex items-center hover:bg-black/20 transition duration-150 border-l border-red-800/40 whitespace-nowrap">
                     User Login
                 </a>
-                <a href="{% url 'Register' %}" class="h-full {% if 'Register' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40">
+                <a href="{% url 'Register' %}" class="h-full {% if 'Register' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-xs sm:text-sm px-3 sm:px-4 lg:px-6 flex items-center hover:bg-black/20 transition duration-150 border-l border-red-800/40 whitespace-nowrap">
                     New User Signup
                 </a>
-                <a href="{% url 'FAQ' %}" class="h-full {% if 'FAQ' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40 border-r border-red-800/40">
+                <a href="{% url 'FAQ' %}" class="h-full {% if 'FAQ' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-xs sm:text-sm px-3 sm:px-4 lg:px-6 flex items-center hover:bg-black/20 transition duration-150 border-l border-red-800/40 border-r border-red-800/40 whitespace-nowrap">
                     FAQ Helpdesk
                 </a>
             </nav>
 
             <!-- Mobile Menu Toggle Button -->
-            <button id="mobileMenuToggle" class="lg:hidden p-2 rounded text-white hover:bg-white/10 transition ml-auto" aria-label="Toggle Navigation">
+            <button id="mobileMenuToggle" class="md:hidden p-2 rounded text-white hover:bg-white/10 transition ml-auto" aria-label="Toggle Navigation">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
         </div>
 
         <!-- Mobile Nav Menu Dropdown -->
-        <div id="mobileNavMenu" class="hidden lg:hidden bg-[#800000] border-t border-[#700000] px-6 py-4 space-y-2 shadow-2xl">
+        <div id="mobileNavMenu" class="hidden md:hidden bg-[#800000] border-t border-[#700000] px-6 py-4 space-y-2 shadow-2xl">
             <a href="{% url 'index' %}" class="block font-medium text-white py-2 border-b border-white/10 {% if request.path == '/' or request.path == '/index.html' %}bg-black/20 px-2 rounded{% endif %}">Home</a>
             <a href="{% url 'AdminLogin' %}" class="block font-medium text-white py-2 border-b border-white/10 {% if 'AdminLogin' in request.path %}bg-black/20 px-2 rounded{% endif %}">Admin Login</a>
             <a href="{% url 'EmployeeLogin' %}" class="block font-medium text-white py-2 border-b border-white/10 {% if 'EmployeeLogin' in request.path %}bg-black/20 px-2 rounded{% endif %}">Employee Login</a>
