@@ -94,14 +94,11 @@
         <!-- CENTER SHOWCASE: Rectangular Video Player (Flush Directly Under Top Bar, No Gap at Top, True Big Screen Display) -->
         <div class="relative z-20 mt-0 flex flex-col items-center justify-center px-1 sm:px-4 w-full">
             
-            <!-- Video Switcher Tabs (Seamlessly Attached to Top of Video Screen) -->
-            <div class="flex items-center gap-1 p-1 bg-slate-950/95 rounded-none border border-b-0 border-red-500/70 backdrop-blur-md shadow-2xl z-30 -mb-[2px]">
-                <button id="btnTabHero" onclick="switchTripGenVideo('hero')" class="px-5 py-1.5 rounded-none text-xs font-bold tracking-wider uppercase transition bg-red-600 text-white shadow-md">
+            <!-- Video Badge (Seamlessly Attached to Top of Video Screen) -->
+            <div class="flex items-center p-1 bg-slate-950/95 rounded-none border border-b-0 border-red-500/70 backdrop-blur-md shadow-2xl z-30 -mb-[2px]">
+                <div id="btnTabHero" class="px-5 py-1.5 rounded-none text-xs font-bold tracking-wider uppercase bg-red-600 text-white shadow-md">
                     🎬 Hero Animation
-                </button>
-                <button id="btnTabDemo" onclick="switchTripGenVideo('demo')" class="px-5 py-1.5 rounded-none text-xs font-bold tracking-wider uppercase transition text-slate-300 hover:text-white hover:bg-slate-800">
-                    🚀 TripGen Demo
-                </button>
+                </div>
             </div>
 
             <!-- Crisp Rectangular Video Player Frame: True Cinema Big Screen (Attached Flush, Exact 16:9, No Gap at Top) -->
@@ -473,8 +470,7 @@
         // TRIPGEN REAL VIDEO CONTROLLER (From Screen shorts D)
         // ==============================================================
         const videoSources = {
-            hero: "{% static 'videos/project_video.mp4' %}",
-            demo: "{% static 'videos/project_demo.mp4' %}"
+            hero: "{% static 'videos/project_video.mp4' %}"
         };
         let currentVideoType = 'hero';
         let isVideoFinished = false;
@@ -483,28 +479,16 @@
             return document.getElementById('tripgenVideo');
         }
 
-        // Switch between Hero Animation and TripGen Demo
+        // Keep Hero Animation video
         function switchTripGenVideo(type) {
             const video = getTripgenVideo();
             const source = document.getElementById('videoSource');
-            const btnHero = document.getElementById('btnTabHero');
-            const btnDemo = document.getElementById('btnTabDemo');
             if (!video || !source) return;
 
-            currentVideoType = type;
-            source.src = videoSources[type] || videoSources.hero;
+            currentVideoType = 'hero';
+            source.src = videoSources.hero;
             video.load();
             video.play().catch(e => console.log('Autoplay handled:', e));
-
-            if (btnHero && btnDemo) {
-                if (type === 'hero') {
-                    btnHero.className = 'px-5 py-1.5 rounded-none text-xs font-bold tracking-wider uppercase transition bg-red-600 text-white shadow-md';
-                    btnDemo.className = 'px-5 py-1.5 rounded-none text-xs font-bold tracking-wider uppercase transition text-slate-300 hover:text-white hover:bg-slate-800';
-                } else {
-                    btnDemo.className = 'px-5 py-1.5 rounded-none text-xs font-bold tracking-wider uppercase transition bg-red-600 text-white shadow-md';
-                    btnHero.className = 'px-5 py-1.5 rounded-none text-xs font-bold tracking-wider uppercase transition text-slate-300 hover:text-white hover:bg-slate-800';
-                }
-            }
             updatePlayPauseIcon();
         }
 
