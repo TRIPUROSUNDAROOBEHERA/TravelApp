@@ -30,10 +30,11 @@
     <header class="w-full shrink-0">
         <div class="w-full bg-[#990000] shadow-lg">
             <div class="w-full px-8 flex overflow-x-auto justify-end items-center">
+                <a href="{% url 'AdminScreen' %}" class="px-8 py-4 text-white text-sm hover:bg-black transition whitespace-nowrap">Exit Terminal</a>
                 <a href="{% url 'AddEmployee' %}" class="px-8 py-4 text-white text-sm hover:bg-[#7a0000] transition whitespace-nowrap">Add Employees</a>
                 <a href="{% url 'ViewEmployee' %}" class="px-8 py-4 text-white text-sm bg-[#7a0000] transition whitespace-nowrap">View Employees</a>
                 <a href="{% url 'ViewAuthEmployee' %}" class="px-8 py-4 text-white text-sm hover:bg-[#7a0000] transition whitespace-nowrap">View Authenticated Employees</a>
-                <a href="{% url 'index' %}" class="px-8 py-4 text-white text-sm hover:bg-[#7a0000] transition whitespace-nowrap">Logout</a>
+                <a href="{% url 'Logout' %}" class="px-8 py-4 text-white text-sm hover:bg-[#7a0000] transition whitespace-nowrap">Logout</a>
             </div>
         </div>
     </header>

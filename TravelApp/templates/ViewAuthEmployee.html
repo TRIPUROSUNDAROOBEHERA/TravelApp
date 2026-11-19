@@ -117,10 +117,11 @@
     </div>
 
     <nav>
+        <a href="{% url 'AdminScreen' %}">Exit Terminal</a>
         <a href="{% url 'AddEmployee' %}">Add Employees</a>
         <a href="{% url 'ViewEmployee' %}">View Employees</a>
         <a href="{% url 'ViewAuthEmployee' %}" class="active">View Auth</a>
-        <a href="{% url 'index' %}">Logout</a>
+        <a href="{% url 'Logout' %}">Logout</a>
     </nav>
 
     <div class="main-container">

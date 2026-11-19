@@ -8,6 +8,10 @@ urlpatterns = [
     path('FAQ.html', views.FAQ, name='FAQ'),
     path('FAQ', views.FAQ, name='FAQ_clean'),
     path('Logout', views.Logout, name='Logout'),
+    path('Logout/', views.Logout, name='Logout_slash'),
+    path('logout', views.Logout, name='logout_lower'),
+    path('logout/', views.Logout, name='logout_lower_slash'),
+    path('Logout.html', views.Logout, name='Logout_html'),
 
     # Project Documentation & Presentation
     path('project-doc', views.project_doc_view, name='project_doc'),
