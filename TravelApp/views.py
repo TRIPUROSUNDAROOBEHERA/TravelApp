@@ -275,7 +275,7 @@ def ViewAuthEmployeeAction(request):
         t2 = request.POST.get('t2', '').strip()
 
         if not t1 or not t2:
-            return render(request, 'ViewAuthEmployee.html', {'data': 'Please select both dates.'})
+            return render(request, 'ViewAuthEmployee.html', {'data': 'Please select both dates.', 't1': t1, 't2': t2})
 
         try:
             from_date = f"{parse_date(t1)} 00:00:00"
@@ -290,14 +290,14 @@ def ViewAuthEmployeeAction(request):
                 res_logs = cursor.fetchall()
 
             if not res_logs:
-                return render(request, 'ViewAuthEmployee.html', {'data': 'No records found for these dates.'})
+                return render(request, 'ViewAuthEmployee.html', {'data': 'No records found for these dates.', 't1': t1, 't2': t2})
 
             # Template ViewAuthEmployee.html expects dictionary objects with username, login_date, login_status
             log_list = [{'username': r[0], 'login_date': r[1], 'login_status': r[2]} for r in res_logs]
-            return render(request, 'ViewAuthEmployee.html', {'logs': log_list})
+            return render(request, 'ViewAuthEmployee.html', {'logs': log_list, 't1': t1, 't2': t2})
 
         except Exception as e:
-            return render(request, 'ViewAuthEmployee.html', {'data': f'System Error: {str(e)}'})
+            return render(request, 'ViewAuthEmployee.html', {'data': f'System Error: {str(e)}', 't1': t1, 't2': t2})
 
     return render(request, 'ViewAuthEmployee.html')
 

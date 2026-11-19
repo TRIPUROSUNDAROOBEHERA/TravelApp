@@ -137,14 +137,14 @@
                 <div class="input-group">
                     <label>FROM DATE</label>
                     <div class="input-wrapper">
-                        <input name="t1" type="text" id="demo" readonly>
+                        <input name="t1" type="text" id="demo" value="{{ t1|default:'' }}" placeholder="DD-MM-YYYY" autocomplete="off">
                         <img src="{% static 'cal.gif' %}" class="calendar-icon" onclick="NewCal('demo','ddmmyyyy',false,24)">
                     </div>
                 </div>
                 <div class="input-group">
                     <label>TO DATE</label>
                     <div class="input-wrapper">
-                        <input name="t2" type="text" id="demo2" readonly>
+                        <input name="t2" type="text" id="demo2" value="{{ t2|default:'' }}" placeholder="DD-MM-YYYY" autocomplete="off">
                         <img src="{% static 'cal.gif' %}" class="calendar-icon" onclick="NewCal('demo2','ddmmyyyy',false,24)">
                     </div>
                 </div>
