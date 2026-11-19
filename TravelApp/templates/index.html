@@ -178,18 +178,9 @@
     <div class="w-full bg-[#161c2e] text-slate-300 text-xs py-2 px-6 sm:px-10 lg:px-14 z-50 relative">
         <div class="max-w-[1750px] mx-auto flex flex-wrap items-center justify-between gap-3">
             
-            <!-- Left Side: Slogan & Quick Project Links -->
+            <!-- Left Side: Slogan -->
             <div class="text-slate-300 text-xs font-medium tracking-wide flex items-center gap-3">
                 <span>Your Journey Begins Here</span>
-                <span class="text-slate-600 hidden sm:inline">|</span>
-                <a href="{% url 'project_doc' %}" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-red-950/70 hover:bg-red-900 border border-red-500/40 text-amber-300 hover:text-amber-200 transition font-medium" title="View Project Document PDF">
-                    <span>📄</span>
-                    <span>Project Doc</span>
-                </a>
-                <a href="{% url 'project_ppt' %}" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-blue-950/70 hover:bg-blue-900 border border-blue-500/40 text-cyan-300 hover:text-cyan-200 transition font-medium" title="Download Project Presentation PPT">
-                    <span>📊</span>
-                    <span>Project PPT</span>
-                </a>
             </div>
 
             <!-- Right Side: Contact Us, Email, Phone Numbers -->
@@ -247,14 +238,8 @@
                 <a href="{% url 'Register' %}" class="h-full {% if 'Register' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40">
                     New User Signup
                 </a>
-                <a href="{% url 'FAQ' %}" class="h-full {% if 'FAQ' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40">
+                <a href="{% url 'FAQ' %}" class="h-full {% if 'FAQ' in request.path %}bg-[#750000]{% endif %} text-white font-medium text-sm px-6 flex items-center hover:bg-black/15 transition border-l border-red-800/40 border-r border-red-800/40">
                     FAQ Helpdesk
-                </a>
-                <a href="{% url 'project_doc' %}" target="_blank" class="h-full text-amber-300 hover:text-white font-semibold text-sm px-5 flex items-center hover:bg-[#750000] transition border-l border-red-800/40 gap-1.5" title="View Project Documentation">
-                    <span>📄</span> Doc
-                </a>
-                <a href="{% url 'project_ppt' %}" class="h-full text-cyan-200 hover:text-white font-semibold text-sm px-5 flex items-center hover:bg-[#750000] transition border-l border-r border-red-800/40 gap-1.5" title="Download Project Presentation PPT">
-                    <span>📊</span> PPT
                 </a>
             </nav>
 
@@ -271,9 +256,7 @@
             <a href="{% url 'EmployeeLogin' %}" class="block font-medium text-white py-2 border-b border-white/10">Employee Login</a>
             <a href="{% url 'UserLogin' %}" class="block font-medium text-white py-2 border-b border-white/10">User Login</a>
             <a href="{% url 'Register' %}" class="block font-medium text-white py-2 border-b border-white/10">New User Signup</a>
-            <a href="{% url 'FAQ' %}" class="block font-medium text-white py-2 border-b border-white/10">FAQ Helpdesk</a>
-            <a href="{% url 'project_doc' %}" target="_blank" class="block font-medium text-amber-300 py-2 border-b border-white/10 flex items-center gap-2"><span>📄</span> View Project Documentation</a>
-            <a href="{% url 'project_ppt' %}" class="block font-medium text-cyan-200 py-2 flex items-center gap-2"><span>📊</span> Download Project PPT</a>
+            <a href="{% url 'FAQ' %}" class="block font-medium text-white py-2">FAQ Helpdesk</a>
         </div>
     </header>
 
@@ -457,8 +440,6 @@
                     <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> About Us</a></li>
                     <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Tour Packages</a></li>
                     <li><a href="{% url 'FAQ' %}" class="text-gray-400 hover:text-white transition flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Help / FAQ</a></li>
-                    <li><a href="{% url 'project_doc' %}" target="_blank" class="text-amber-400 hover:text-amber-300 transition flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> 📄 Project Document (PDF)</a></li>
-                    <li><a href="{% url 'project_ppt' %}" class="text-cyan-400 hover:text-cyan-300 transition flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> 📊 Project Presentation (PPT)</a></li>
                 </ul>
             </div>
 
